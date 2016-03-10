@@ -56,12 +56,33 @@
 
     <modules>
         <module>liquibase-core</module>
-        <module>liquibase-maven-plugin</module>
+        <!-- <module>liquibase-maven-plugin</module>
         <module>liquibase-osgi</module>
         <module>liquibase-cdi</module>
         <module>liquibase-integration-tests</module>
-        <module>liquibase-debian</module>
+        <module>liquibase-debian</module> -->
     </modules>
+    
+    <distributionManagement>
+        <repository>
+            <id>pub-repo.gtechs.xyz</id>
+            <url>s3://mvn-repo.gtechs.xyz/release</url>
+        </repository>
+        
+        <snapshotRepository>
+            <id>pub-repo.gtechs.xyz</id>
+            <url>s3://mvn-repo.gtechs.xyz/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
+    <repositories>
+    
+        <repository>
+            <id>pub-repo.gtechs.xyz</id>
+            <url>s3://mvn-repo.gtechs.xyz/release</url>
+        </repository>
+        
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -198,6 +219,13 @@
     </dependencyManagement>
 
     <build>
+        <extensions>
+	      <extension>
+	        <groupId>org.kuali.maven.wagons</groupId>
+	        <artifactId>maven-s3-wagon</artifactId>
+	        <version>1.2.1</version>
+	      </extension>
+	    </extensions>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -314,22 +342,6 @@
 
         </plugins>
     </reporting>
-
-    <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Production Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-
-        </repository>
-        <snapshotRepository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sontatype Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <profiles>
         <profile>
